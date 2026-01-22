@@ -156,35 +156,52 @@ html, body {
 
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
 }
 
 .product {
-  border: 1px solid #e5e5e5;
-  padding: 10px;
+  background: var(--card);
+  border-radius: var(--radius);
+  /*border: 1px solid #e5e5e5;*/
+  padding: 16px;
   cursor: pointer;
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .product:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+  box-shadow: var(--shadow);
 }
 
 .product img {
   width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
   display: block;
+}
+
+.product h3 {
+  font-size: 1rem;
+  margin: 10px 0 4px;
+}
+
+.product p {
+  color: var(--muted);
+  font-size: .9rem;
 }
 
 /* STATUS */
 .status-low {
-  color: orange;
-  font-size: 14px;
+  color: #ffb703;
+  font-size: .8rem;
 }
 
 .status-out {
-  opacity: 0.5;
+  opacity: .4;
+  filter: grayscale(1);
+  pointer-events: none;
 }
 
 /* OVERLAY */
