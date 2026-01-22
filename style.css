@@ -46,6 +46,7 @@ a {
 
 .select-wrapper {
   position: relative;
+  display: inline-block;
 }
 
 .select-wrapper select {
@@ -53,7 +54,7 @@ a {
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  background: var(--accent);
+  background: #ff7a00;
   color: white;
   border: none;
   border-radius: 12px;
@@ -61,18 +62,23 @@ a {
   padding-right: 40px;
   cursor: pointer;
   font-weight: 600;
+  outline: none;
+
+  /* Важливо, щоб select був ширший, ніж стрілка */
+  min-width: 160px;
 }
 
 .select-wrapper::after {
-  content: "▾";
+  content: "▾"; /* стрілка */
   position: absolute;
-  right: 16px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 14px;
+  font-size: 16px;
   color: white;
   pointer-events: none;
 }
+
 
 .products-section {
   margin-bottom: 40px;
