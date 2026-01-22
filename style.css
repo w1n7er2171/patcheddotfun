@@ -93,6 +93,20 @@ body {
   display: none;
 }
 
+/* CART */
+.cart-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  z-index: 9;
+}
+
+.total {
+  font-weight: bold;
+  margin-top: 16px;
+}
+
 /* CHECKOUT */
 .checkout {
   position: fixed;
