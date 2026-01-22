@@ -1,4 +1,3 @@
-const productsEl = document.getElementById("products");
 const modal = document.getElementById("modal");
 const cartModal = document.getElementById("cartModal");
 const overlay = document.getElementById("overlay");
