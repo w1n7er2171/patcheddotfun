@@ -117,7 +117,6 @@ select:focus {
 }
 
 .cartModal {
-  visibility: hidden;
   width: 600px;
   /*max-width: 92vw;*/
   padding: 20px;
@@ -130,10 +129,6 @@ select:focus {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
-}
-
-cartModal.show {
-  visibility: visible;
 }
 
 .cart-item {
@@ -391,7 +386,6 @@ html, body {
 }
 
 .modal {
-  visibility: hidden;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -441,6 +435,7 @@ html, body {
 .hidden {
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
 }
 
 /* BUTTONS */
