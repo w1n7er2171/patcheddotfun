@@ -16,8 +16,20 @@ fetch("data/products.json")
   });
 
 function renderProducts() {
+  window.addEventListener("load", () => {
+  const id = location.hash.replace("#", "");
+  if (!id) return;
+
+  const product = products.find(p => p.id === id);
+  if (product) openModal(product);
+  });
+
+  
   products.forEach(p => {
-    if (p.status === "out_of_stock") return;
+    if (p.status === "out_of_stock") {
+      div.classList.add("status-out");
+    }
+
 
     const div = document.createElement("div");
     div.className = "product";
@@ -36,6 +48,8 @@ function renderProducts() {
 
 /* MODAL */
 function openModal(product) {
+  history.pushState(null, "", `#${product.id}`);
+  
   currentProduct = product;
 
   modal.classList.remove("hidden");
@@ -53,10 +67,19 @@ function openModal(product) {
   document.getElementById("modalStatus").innerText =
     product.status === "low_stock" ? "Закінчується" : "В наявності";
 
+    const btn = document.getElementById("addToCart");
+  btn.disabled = product.status === "out_of_stock";
+  btn.innerText = product.status === "out_of_stock"
+    ? "Немає в наявності"
+    : "Додати в корзину";
+
+  
   document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
+  history.pushState(null, "", location.pathname);
+  
   modal.classList.remove("show");
   overlay.classList.remove("show");
 
