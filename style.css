@@ -148,6 +148,11 @@ body {
   100% { left: 100%; }
 }
 
+.empty-text {
+  color: #777;
+  font-style: italic;
+  margin-top: 10px;
+}
 
 .products {
   display: grid;
