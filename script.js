@@ -134,6 +134,7 @@ function renderCart() {
         <button class="remove-btn" onclick="removeFromCart('${item.id}')">x</button>
 
         <input
+          class="qty-input"
           type="number"
           min="1"
           value="${item.qty}"
