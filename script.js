@@ -13,13 +13,15 @@ let cart = []; // ← тепер завжди чиста корзина при �
 /* =======================
    LOAD PRODUCTS
 ======================= */
+showSkeleton();
+
 fetch("data/products.json")
   .then(r => r.json())
   .then(data => {
     products = data.products;
     renderProducts();
     restoreFromHash();
-    saveCart(); // синхронізація кнопки корзини
+    saveCart();
   });
 
 /* =======================
@@ -57,6 +59,17 @@ function renderProducts() {
   });
 }
 
+function showSkeleton() {
+  const sections = ["productsPreorder", "productsInStock", "productsOutStock"];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    el.innerHTML = `
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    `;
+  });
+}
 
 /* =======================
    PRODUCT MODAL
