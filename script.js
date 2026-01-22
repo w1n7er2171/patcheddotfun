@@ -1,38 +1,40 @@
 const productsEl = document.getElementById("products");
 const modal = document.getElementById("modal");
+const cartModal = document.getElementById("cartModal");
 const overlay = document.getElementById("overlay");
+
+const openCartBtn = document.getElementById("openCart");
 const checkoutBtn = document.getElementById("checkout");
 
 let products = [];
 let currentProduct = null;
 let cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-/* Load products */
+/* =======================
+   LOAD PRODUCTS
+======================= */
 fetch("data/products.json")
   .then(r => r.json())
   .then(data => {
     products = data.products;
     renderProducts();
+    restoreFromHash();
+    saveCart(); // синхронізація кнопки корзини
   });
 
+/* =======================
+   PRODUCTS
+======================= */
 function renderProducts() {
-  window.addEventListener("load", () => {
-  const id = location.hash.replace("#", "");
-  if (!id) return;
+  productsEl.innerHTML = "";
 
-  const product = products.find(p => p.id === id);
-  if (product) openModal(product);
-  });
-
-  
   products.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "product";
+
     if (p.status === "out_of_stock") {
       div.classList.add("status-out");
     }
-
-
-    const div = document.createElement("div");
-    div.className = "product";
 
     div.innerHTML = `
       <img src="${p.image}">
@@ -46,10 +48,11 @@ function renderProducts() {
   });
 }
 
-/* MODAL */
+/* =======================
+   PRODUCT MODAL
+======================= */
 function openModal(product) {
   history.pushState(null, "", `#${product.id}`);
-  
   currentProduct = product;
 
   modal.classList.remove("hidden");
@@ -65,21 +68,22 @@ function openModal(product) {
   document.getElementById("modalDescription").innerText = product.description;
   document.getElementById("modalPrice").innerText = product.price + " грн";
   document.getElementById("modalStatus").innerText =
-    product.status === "low_stock" ? "Закінчується" : "В наявності";
+    product.status === "low_stock"
+      ? "Закінчується"
+      : product.status === "out_of_stock"
+      ? "Немає в наявності"
+      : "В наявності";
 
-    const btn = document.getElementById("addToCart");
+  const btn = document.getElementById("addToCart");
   btn.disabled = product.status === "out_of_stock";
-  btn.innerText = product.status === "out_of_stock"
-    ? "Немає в наявності"
-    : "Додати в корзину";
+  btn.innerText = btn.disabled ? "Немає в наявності" : "Додати в корзину";
 
-  
   document.body.style.overflow = "hidden";
 }
 
 function closeModal() {
   history.pushState(null, "", location.pathname);
-  
+
   modal.classList.remove("show");
   overlay.classList.remove("show");
 
@@ -92,9 +96,10 @@ function closeModal() {
 }
 
 document.getElementById("closeModal").onclick = closeModal;
-overlay.onclick = closeModal;
 
-/* CART */
+/* =======================
+   CART
+======================= */
 function addToCart(product) {
   const item = cart.find(i => i.id === product.id);
   if (item) {
@@ -112,8 +117,7 @@ function renderCart() {
 
   cart.forEach(item => {
     const product = products.find(p => p.id === item.id);
-
-    if (!product) return; // ← ОЦЕ КРИТИЧНО
+    if (!product) return;
 
     const sum = product.price * item.qty;
     total += sum;
@@ -132,9 +136,10 @@ function renderCart() {
   document.getElementById("cartTotal").innerText = total;
 }
 
-
 function changeQty(id, delta) {
   const item = cart.find(i => i.id === id);
+  if (!item) return;
+
   item.qty += delta;
   if (item.qty <= 0) {
     cart = cart.filter(i => i.id !== id);
@@ -145,19 +150,68 @@ function changeQty(id, delta) {
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
-  document.getElementById("openCart")
-    .classList.toggle("hidden", cart.length === 0);
+
+  openCartBtn.classList.toggle("hidden", cart.length === 0);
 }
 
+/* =======================
+   CART MODAL
+======================= */
+openCartBtn.onclick = () => {
+  cartModal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+
+  requestAnimationFrame(() => {
+    cartModal.classList.add("show");
+    overlay.classList.add("show");
+  });
+
+  renderCart();
+  document.body.style.overflow = "hidden";
+};
+
+document.getElementById("closeCart").onclick = closeCart;
+
+function closeCart() {
+  cartModal.classList.remove("show");
+  overlay.classList.remove("show");
+
+  setTimeout(() => {
+    cartModal.classList.add("hidden");
+  }, 250);
+
+  document.body.style.overflow = "";
+}
+
+/* overlay закриває все */
+overlay.onclick = () => {
+  closeModal();
+  closeCart();
+};
+
+/* =======================
+   HASH OPEN
+======================= */
+function restoreFromHash() {
+  const id = location.hash.replace("#", "");
+  if (!id) return;
+
+  const product = products.find(p => p.id === id);
+  if (product) openModal(product);
+}
+
+/* =======================
+   BUTTONS
+======================= */
 document.getElementById("addToCart").onclick = () => {
+  if (!currentProduct) return;
   addToCart(currentProduct);
-  /*cart.push({ id: currentProduct.id, qty: 1 });
-  localStorage.setItem("cart", JSON.stringify(cart));
-  checkoutBtn.classList.remove("hidden");*/
   closeModal();
 };
 
-/* TELEGRAM */
+/* =======================
+   TELEGRAM
+======================= */
 checkoutBtn.onclick = () => {
   const payload = btoa(JSON.stringify({ items: cart }));
   window.open(
