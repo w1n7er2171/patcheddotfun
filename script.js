@@ -26,15 +26,17 @@ fetch("data/products.json")
    PRODUCTS
 ======================= */
 function renderProducts() {
-  productsEl.innerHTML = "";
+  const preorderEl = document.getElementById("productsPreorder");
+  const inStockEl = document.getElementById("productsInStock");
+  const outStockEl = document.getElementById("productsOutStock");
+
+  preorderEl.innerHTML = "";
+  inStockEl.innerHTML = "";
+  outStockEl.innerHTML = "";
 
   products.forEach(p => {
     const div = document.createElement("div");
     div.className = "product";
-
-    if (p.status === "out_of_stock") {
-      div.classList.add("status-out");
-    }
 
     div.innerHTML = `
       <img src="${p.image}">
@@ -44,9 +46,17 @@ function renderProducts() {
     `;
 
     div.onclick = () => openModal(p);
-    productsEl.appendChild(div);
+
+    if (p.status === "preorder") {
+      preorderEl.appendChild(div);
+    } else if (p.status === "out_of_stock") {
+      outStockEl.appendChild(div);
+    } else {
+      inStockEl.appendChild(div);
+    }
   });
 }
+
 
 /* =======================
    PRODUCT MODAL
