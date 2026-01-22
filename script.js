@@ -72,6 +72,40 @@ document.getElementById("closeModal").onclick = closeModal;
 overlay.onclick = closeModal;
 
 /* CART */
+function addToCart(product) {
+  const item = cart.find(i => i.id === product.id);
+  if (item) {
+    item.qty++;
+  } else {
+    cart.push({ id: product.id, qty: 1 });
+  }
+  saveCart();
+}
+
+function renderCart() {
+  const el = document.getElementById("cartItems");
+  el.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const product = products.find(p => p.id === item.id);
+    const sum = product.price * item.qty;
+    total += sum;
+
+    el.innerHTML += `
+      <div class="cart-item">
+        <strong>${product.name}</strong><br>
+        <button onclick="changeQty('${item.id}', -1)">−</button>
+        ${item.qty}
+        <button onclick="changeQty('${item.id}', 1)">+</button>
+        = ${sum} грн
+      </div>
+    `;
+  });
+
+  document.getElementById("cartTotal").innerText = total;
+}
+
 document.getElementById("addToCart").onclick = () => {
   cart.push({ id: currentProduct.id, qty: 1 });
   localStorage.setItem("cart", JSON.stringify(cart));
