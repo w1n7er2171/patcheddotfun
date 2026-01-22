@@ -53,7 +53,8 @@ a {
   margin-bottom: 20px;
 }
 
-#cartModal {
+.cartModal {
+  visibility: hidden;
   width: 540px;
   max-width: 92vw;
   padding: 20px;
@@ -66,6 +67,10 @@ a {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 20;
+}
+
+cartModal.show {
+  visibility: visible;
 }
 
 .cart-item {
@@ -323,6 +328,7 @@ html, body {
 }
 
 .modal {
+  visibility: hidden;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -350,6 +356,7 @@ html, body {
 }
 
 .modal.show {
+  visibility: visible;
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
 }
