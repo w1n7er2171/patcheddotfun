@@ -43,67 +43,37 @@
   justify-content: space-between;
   gap: 10px;
   padding: 10px 0;
-  border-bottom: 1px solid #eee;
 }
 
 .cart-item-left {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex: 1; /* займає весь доступний простір */
-  min-width: 0; /* важливо для правильного обрізання */
+  min-width: 0;
+}
+
+.cart-item-left strong {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cart-item-qty input {
+  width: 50px;
+  text-align: center;
 }
 
 .cart-item-price {
-  white-space: nowrap; /* НЕ переносити */
-  flex: 0 0 auto; /* фіксована ширина */
-  margin-left: 10px;
-}
-
-.cart-item-left span {
-  white-space: nowrap; /* щоб назва не розривалась */
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-
-.qty-input {
-  width: 30px;
-  padding: 6px 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  text-align: center;
-  -moz-appearance: textfield; /* Firefox */
-}
-
-.qty-input::-webkit-outer-spin-button,
-.qty-input::-webkit-inner-spin-button {
-  -webkit-appearance: none; /* Chrome */
-  margin: 0;
-}
-
-.qty-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: #fff;
-  cursor: pointer;
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.cart-item-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  white-space: nowrap;
+  margin-left: auto;
+  padding-left: 10px;
 }
 
 .remove-btn {
