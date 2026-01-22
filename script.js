@@ -37,12 +37,23 @@ function populateTypeFilter() {
   const types = [...new Set(products.map(p => p.type))];
 
   types.forEach(type => {
+    const count = products.filter(p => p.type === type).length;
+
     const option = document.createElement("option");
     option.value = type;
-    option.innerText = capitalize(type);
+    option.innerText = `${capitalize(type)} (${count})`;
     typeFilter.appendChild(option);
   });
 }
+
+document.getElementById("resetFilters").onclick = () => {
+  typeFilter.value = "";
+  subtypeFilter.value = "";
+  subtypeFilter.disabled = true;
+
+  filteredProducts = products;
+  renderProducts();
+};
 
 function populateSubtypeFilter(type) {
   subtypeFilter.innerHTML = `<option value="">Всі підтипи</option>`;
