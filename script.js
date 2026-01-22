@@ -252,6 +252,8 @@ function closeModal() {
   }, 250);
 
   document.body.style.overflow = "";
+
+  hideOverlayIfNoModal();
 }
 
 document.getElementById("closeModal").onclick = closeModal;
@@ -388,6 +390,7 @@ function closeCart() {
   }, 250);
 
   document.body.style.overflow = "";
+  hideOverlayIfNoModal();
 }
 
 /* overlay закриває все */
@@ -395,6 +398,19 @@ overlay.onclick = () => {
   if (modal.classList.contains("show")) closeModal();
   if (cartModal.classList.contains("show")) closeCart();
 };
+
+
+function hideOverlayIfNoModal() {
+  const modalOpen = modal.classList.contains("show");
+  const cartOpen = cartModal.classList.contains("show");
+
+  if (!modalOpen && !cartOpen) {
+    overlay.classList.remove("show");
+    setTimeout(() => {
+      overlay.classList.add("hidden");
+    }, 250);
+  }
+}
 
 
 /* =======================
