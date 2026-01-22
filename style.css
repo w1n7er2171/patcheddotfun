@@ -2,6 +2,19 @@
   --overlay: rgba(0,0,0,0.6);
 }
 
+@media (max-width: 600px) {
+  .products {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .modal {
+    width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+
 body {
   font-family: system-ui, sans-serif;
   margin: 0;
