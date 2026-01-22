@@ -5,7 +5,7 @@
       "name": "Стікер обкладинки альбому Трускавецького Лісництва",
       "price": 20,
       "status": "in_stock",
-      "image": "assets/products/sticker_lisnycha.png",
+      "image": "assets/sticker_lisnycha.png",
       "description": "Вініловий стікер 3×3 см"
     },
     {
@@ -13,7 +13,7 @@
       "name": "Lo-Fi Girl",
       "price": 150,
       "status": "low_stock",
-      "image": "assets/products/lofi_girl.png",
+      "image": "assets/lofi_girl.png",
       "description": "Матова наклейка 8×8 см"
     }
   ]
