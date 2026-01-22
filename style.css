@@ -44,17 +44,23 @@ a {
   }
 }
 
-#filters {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
+#filters select,
+#filters button {
+  background: var(--accent); /* помаранчевий */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 #filters select {
-  padding: 10px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
+
 
 .products-section {
   margin-bottom: 40px;
