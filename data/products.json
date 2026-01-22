@@ -3,6 +3,8 @@
     {
       "id": "sticker_lisnycha",
       "name": "Стікер обкладинки альбому Трускавецького Лісництва",
+      "type": "stickers",
+      "subtype": "vinyl",
       "price": 20,
       "status": "in_stock",
       "image": "assets/sticker_lisnycha.png",
@@ -11,10 +13,12 @@
     {
       "id": "lofi_girl",
       "name": "Lo-Fi Girl",
+      "type": "clothes",
+      "subtype": "tshirt",
       "price": 150,
-      "status": "low_stock",
+      "status": "out_of_stock",
       "image": "assets/lofi_girl.png",
-      "description": "Матова наклейка 8×8 см"
+      "description": "Футболка тест"
     }
   ]
 }
