@@ -128,25 +128,25 @@ function renderCart() {
     total += sum;
 
     el.innerHTML += `
-      <div class="cart-item">
-        <div class="cart-item-left">
-          <strong>${product.name}</strong>
-
-          <button class="qty-btn" onclick="changeQty('${item.id}', -1)">−</button>
-          <input
-            class="qty-input"
-            type="number"
-            min="1"
-            value="${item.qty}"
-            onchange="setQty('${item.id}', this.value)"
-          />
-          <button class="qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
-
-          <span>= ${sum} грн</span>
-        </div>
-
-        <button class="remove-btn" onclick="removeFromCart('${item.id}')">x</button>
-      </div>
+     <div class="cart-item">
+       <div class="cart-item-left">
+         <strong>${product.name}</strong>
+   
+         <button class="qty-btn" onclick="changeQty('${item.id}', -1)">−</button>
+         <input
+           class="qty-input"
+           type="number"
+           min="1"
+           value="${item.qty}"
+           onchange="setQty('${item.id}', this.value)"
+         />
+         <button class="qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
+       </div>
+   
+       <div class="cart-item-price">= ${sum} грн</div>
+   
+       <button class="remove-btn" onclick="removeFromCart('${item.id}')">x</button>
+     </div>
     `;
   });
 
