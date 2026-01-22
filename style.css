@@ -15,7 +15,16 @@
 }
 
 #cartModal {
-  z-index: 12;
+  width: 480px; /* ширина кошика */
+  max-width: 90vw; /* щоб на мобільних не виходило за екран */
+  padding: 20px;
+  border-radius: 20px;
+  background: #fff;
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
 }
 
 .qty-input {
