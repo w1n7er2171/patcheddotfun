@@ -442,37 +442,36 @@ document.getElementById("addToCart").onclick = () => {
   closeModal();
 };
 
+
 /* =======================
    ORDER CONFIRMATION LOGIC
 ======================= */
+const orderModal = document.getElementById("orderModal");
+const orderPreview = document.getElementById("orderPreview");
+const singleOrderBtn = document.getElementById("singleOrderBtn");
+
 checkoutBtn.onclick = () => {
   if (!cart.length) return;
 
-  // 1. Формуємо "технічний код" для бота
-  // Формат: ID.Розмір.Кількість, розділені підкресленням
+  // 1. Формуємо "технічний код" для бота (без зайвих слів)
+  // Формат: [ID:Розмір:Кількість|...]
   const rawData = cart.map(item => {
     const s = item.size ? item.size.replace(/\s+/g, '') : 'N';
     return `${item.id}:${s}:${item.qty}`;
   }).join('|');
 
-  // Додаємо мітку магазину та дату для унікальності
-  const orderTimestamp = Math.floor(Date.now() / 1000);
-  const finalOrderCode = `ORDER_DATA[${rawData}]ID:${orderTimestamp}`;
+  const textToCopy = `ORDER[${rawData}]`;
 
-  // Текст для прев'ю (що бачить людина)
-  let previewText = `🛒 Ваше замовлення сформовано!\n\n`;
+  // 2. Людський текст для прев'ю в модалці
+  let previewText = `🛒 Ваше замовлення:\n`;
   cart.forEach(item => {
     const product = products.find(p => p.id === item.id);
     previewText += `• ${product ? product.name : item.id} ${item.size ? `[${item.size}]` : ''} — ${item.qty} шт.\n`;
   });
 
-  // ВСТАВЛЯЄМО В ПРЕВ'Ю ЛЮДСЬКИЙ ТЕКСТ
   orderPreview.innerText = previewText;
   
-  // А КОПІЮВАТИ БУДЕМО ТЕХНІЧНИЙ КОД
-  const textToCopy = `Привіт! Моє замовлення:\n\n${finalOrderCode}`;
-
-  // ... (далі відкриття модалки як було)
+  // Закриваємо кошик і показуємо модалку замовлення
   cartModal.classList.remove("show");
   setTimeout(() => {
     cartModal.classList.add("hidden");
@@ -480,23 +479,31 @@ checkoutBtn.onclick = () => {
     requestAnimationFrame(() => orderModal.classList.add("show"));
   }, 200);
 
+  // 3. Кнопка "Скопіювати та замовити"
   singleOrderBtn.onclick = async () => {
     try {
-      // КОПІЮЄМО ТЕХНІЧНИЙ КОД
+      // Копіюємо тільки технічний код
       await navigator.clipboard.writeText(textToCopy);
       
-      singleOrderBtn.innerText = "✅ Код скопійовано! Переходимо...";
+      singleOrderBtn.innerText = "✅ Скопійовано!";
       singleOrderBtn.style.backgroundColor = "#28a745";
 
+      // Очищаємо кошик
       cart = [];
       saveCart();
 
+      // 4. Закриваємо модалку і відкриваємо Telegram
       setTimeout(() => {
-        window.open(`https://t.me/patcheddotfunbot`, "_blank");
+        // Закриваємо модалку (викликаємо вашу функцію)
         closeOrderModalFunc();
-      }, 800);
+        
+        // Відкриваємо бота
+        window.open(`https://t.me/patcheddotfunbot`, "_blank");
+      }, 600); // невелика затримка, щоб користувач встиг побачити "Скопійовано"
+
     } catch (err) {
-      alert("Помилка копіювання. Спробуйте ще раз.");
+      console.error(err);
+      alert("Не вдалося скопіювати код. Спробуйте ще раз.");
     }
   };
 };
