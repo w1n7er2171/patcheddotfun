@@ -75,7 +75,7 @@
       <p id="modalStatus"></p>
       <p id="modalDescription"></p>
       <p id="modalPrice"></p>
-      <button id="addToCart">Додати в корзину</button>
+      <button id="addToCart">Додати в кошик</button>
     </div>
 
   
@@ -94,7 +94,20 @@
       </p>
       <button id="checkout">Замовити</button>
     </div>
-  
+
+    <div id="orderModal" class="modal hidden">
+      <button class="close" id="closeOrderModal">×</button>
+      <h2>Майже готово!</h2>
+      <div class="order-instruction">
+        <p>Натисніть кнопку нижче: замовлення скопіюється автоматично, і вас перенесе до чату з ботом.</p>
+        
+        <div class="order-preview" id="orderPreview"></div>
+    
+        <button id="singleOrderBtn" class="primary-btn">
+           Скопіювати та замовити
+        </button>
+      </div>
+    </div>
   
     <script src="script.js" defer></script>
   
