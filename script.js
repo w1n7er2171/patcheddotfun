@@ -446,7 +446,21 @@ document.getElementById("addToCart").onclick = () => {
    TELEGRAM
 ======================= */
 checkoutBtn.onclick = () => {
-  const payload = btoa(JSON.stringify({ items: cart }));
+  if (!cart.length) return;
+
+  const order = {
+    items: cart.map(i => ({
+      id: i.id,
+      qty: i.qty,
+      size: i.size || null
+    })),
+    ts: Date.now()
+  };
+
+  const payload = btoa(
+    encodeURIComponent(JSON.stringify(order))
+  );
+
   window.open(
     `https://t.me/patcheddotfunbot?start=${payload}`,
     "_blank"
