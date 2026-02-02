@@ -1,47 +1,65 @@
 {
   "products": [
     {
-      "id": "sticker_lisnycha",
+      "id": "sticker_tl",
       "name": "Стікер обкладинки альбому Трускавецького Лісництва",
-      "type": "Стікери",
-      "subtype": "Вінілові",
+      "type": "Дрібнички",
+      "subtype": "Стікери",
+      "price": 25,
+      "status": "out_of_stock",
+      "image": "assets/sticker_lisnycha.png",
+      "description": "Стікер 3×3 см, малюнок з обкладинки дебютного альбому гурту Трускавецьке Лісництво - 'ЛІСОВА ПІСнЯ'"
+    },
+    {
+      "id": "sticker_frieren_hent",
+      "name": "Стікер 'Фрірен на зіллі'",
+      "type": "Дрібнички",
+      "subtype": "Стікери",
       "price": 20,
       "status": "in_stock",
-      "image": "assets/sticker_lisnycha.png",
-      "description": "Вініловий стікер 3×3 см"
+      "image": "assets/sticker_frieren_hent.png",
+      "description": "Стікер з Фрірен, що стоїть на пляшечці з зіллям що розчиняє одяг, демонструючи ефект цього зілля"
     },
     {
-      "id": "test_item2",
-      "name": "Lo-Fi Girl 2",
-      "type": "Одяг",
-      "subtype": "Футболки",
-      "price": 350,
-      "sizes": ["S", "M", "L", "XL"],
+      "id": "magnet_frieren_hent",
+      "name": "Магніт 'Фрірен на зіллі'",
+      "type": "Дрібнички",
+      "subtype": "Магніти",
+      "price": 50,
       "status": "in_stock",
-      "image": "assets/lofi_girl.png",
-      "description": "Футболка тест 2"
+      "image": "assets/magnet_frieren_hent.png",
+      "description": "Магніт на холодильник з Фрірен, що стоїть на пляшечці з зіллям що розчиняє одяг, демонструючи ефект цього зілля"
     },
     {
-      "id": "test_item",
-      "name": "Lo-Fi Girl",
+      "id": "sticker_pearto_ryo",
+      "name": "Стікер Рьо Грушка",
+      "type": "Дрібнички",
+      "subtype": "Стікери",
+      "price": 25,
+      "status": "in_stock",
+      "image": "assets/sticker_pearto_ryo.png",
+      "description": "Худі передзамовлення тест"
+    },
+    {
+      "id": "cd_neverbloom_vil_noja_blom",
+      "name": "Лімітований диск з дебютним альбомом neverbloom",
+      "type": "Фізичні медіа",
+      "subtype": "CD диски",
+      "price": 200,
+      "status": "preorder",
+      "image": "assets/cd_neverbloom_vil_noja_blom.png",
+      "description": "Передзамовлення лімітованого CD диску дебютного альбому neverbloom, з автографом автора та ексклюзивними демо записами"
+    },
+    {
+      "id": "tshirt_tl",
+      "name": "Футболка Трускавецьке Лісництво - ЛІСОВА ПІСнЯ",
       "type": "Одяг",
       "subtype": "Футболки",
-      "price": 400,
-      "sizes": ["S", "M", "L"],
-      "status": "out_of_stock",
-      "image": "assets/lofi_girl.png",
-      "description": "Футболка тест"
-    },
-    {
-      "id": "test_item3",
-      "name": "тест передзамовлення",
-      "type": "Одяг",
-      "subtype": "Худі",
       "price": 400,
       "sizes": ["S", "M", "L", "XL"],
       "status": "preorder",
-      "image": "assets/lofi_girl.png",
-      "description": "Худі передзамовлення тест"
+      "image": "assets/tshirt_tl.png",
+      "description": "Передзамовлення футболки Трускавецького Лісництва"
     }
   ]
 }
