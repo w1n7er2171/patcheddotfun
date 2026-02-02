@@ -320,6 +320,10 @@ function closeCart() {
 checkoutBtn.onclick = () => {
   if (!cart.length) return;
 
+  // Скидаємо стан кнопки перед показом модалки
+  singleOrderBtn.innerText = "Скопіювати та замовити";
+  singleOrderBtn.style.backgroundColor = ""; // повертаємо колір до оригінального
+
   // Формуємо код для бота
   const rawData = cart.map(item => {
     const s = item.size ? item.size.replace(/\s+/g, '') : 'N';
