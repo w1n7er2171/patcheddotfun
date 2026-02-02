@@ -197,6 +197,12 @@ function openModal(product) {
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
 
+   modal.classList.toggle(
+     "out-of-stock",
+     product.status === "out_of_stock"
+   );
+
+
   requestAnimationFrame(() => {
     modal.classList.add("show");
     overlay.classList.add("show");
