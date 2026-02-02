@@ -239,12 +239,23 @@ function openModal(product) {
   // кнопка
   const isOut = product.status === "out_of_stock";
 
-  addToCart.disabled = isOut;
-  addToCart.innerText = isOut
-    ? "Товар закінчився"
-    : "Додати в кошик";
+   addToCart.disabled = isOut;
+   addToCart.innerText = isOut
+     ? "Товар закінчився"
+     : "Додати в кошик";
+   
+   addToCart.classList.toggle("out-of-stock-btn", isOut);
+   
+   // ⚠️ ВАЖЛИВО: спочатку скидаємо всі хендлери
+   addToCart.onclick = null;
+   
+   if (!isOut) {
+     addToCart.onclick = () => {
+       addProductToCart(product);
+       closeModal();
+     };
+   }
 
-  addToCart.classList.toggle("out-of-stock-btn", isOut);
 
 
   document.body.style.overflow = "hidden";
@@ -273,6 +284,9 @@ document.getElementById("closeModal").onclick = closeModal;
    CART
 ======================= */
 function addToCart(product, size = null) {
+  if (product.status === "out_of_stock") {
+     return;
+  }
   const item = cart.find(i => i.id === product.id && i.size === size);
 
   if (item) item.qty++;
@@ -395,6 +409,7 @@ document.getElementById("closeCart").onclick = closeCart;
 function closeCart() {
   cartModal.classList.remove("show");
   overlay.classList.remove("show");
+  document.body.style.overflow = "";
 
   setTimeout(() => {
     cartModal.classList.add("hidden");
