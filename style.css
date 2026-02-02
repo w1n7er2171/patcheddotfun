@@ -352,6 +352,28 @@ html, body {
   font-size: .9rem;
 }
 
+/* OUT OF STOCK PRODUCT */
+.product.out-of-stock {
+  opacity: 0.45;
+  filter: grayscale(1);
+}
+
+.product.out-of-stock img {
+  filter: grayscale(1);
+}
+
+.product.out-of-stock h3,
+.product.out-of-stock p {
+  color: #888;
+}
+
+/* Кнопка в модалці, коли товару немає */
+button.out-of-stock-btn {
+  background: #444 !important;
+  cursor: not-allowed;
+}
+
+
 /* STATUS */
 .status-low {
   color: #ffb703;
