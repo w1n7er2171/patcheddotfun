@@ -237,31 +237,7 @@ function openModal(product) {
   }
 
   // кнопка
-  const isOut = product.status === "out_of_stock";
-
-   addToCart.disabled = isOut;
-   addToCart.innerText = isOut
-     ? "Товар закінчився"
-     : "Додати в кошик";
-   
-   addToCart.classList.toggle("out-of-stock-btn", isOut);
-   
-   // повністю скидаємо старі хендлери
-   addToCart.onclick = null;
-   
-   if (!isOut) {
-     addToCart.onclick = () => {
-       const size = document.getElementById("sizeSelect").value;
-   
-       if (product.sizes && product.sizes.length > 0 && !size) {
-         alert("Оберіть розмір");
-         return;
-       }
-   
-       addToCart(product, size);
-       closeModal();
-     };
-   }
+  
    
 
 
@@ -460,9 +436,35 @@ function restoreFromHash() {
 
 /* =======================
    BUTTONS
-======================= 
+======================= */
 document.getElementById("addToCart").onclick = () => {
   if (!currentProduct) return;
+
+   const isOut = product.status === "out_of_stock";
+
+   addToCart.disabled = isOut;
+   addToCart.innerText = isOut
+     ? "Товар закінчився"
+     : "Додати в кошик";
+   
+   addToCart.classList.toggle("out-of-stock-btn", isOut);
+   
+   // повністю скидаємо старі хендлери
+   addToCart.onclick = null;
+   
+   if (!isOut) {
+     addToCart.onclick = () => {
+       const size = document.getElementById("sizeSelect").value;
+   
+       if (product.sizes && product.sizes.length > 0 && !size) {
+         alert("Оберіть розмір");
+         return;
+       }
+   
+       addToCart(product, size);
+       closeModal();
+    };
+  }
    
   const size = document.getElementById("sizeSelect").value;
 
@@ -474,7 +476,7 @@ document.getElementById("addToCart").onclick = () => {
 
   addToCart(currentProduct, size);
   closeModal();
-};*/
+};
 
 
 /* =======================
