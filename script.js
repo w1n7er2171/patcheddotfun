@@ -353,6 +353,7 @@ checkoutBtn.onclick = () => {
 
     orderModal.classList.remove("show");
     orderModal.classList.add("hidden");
+    hideOverlayIfNoModal();
 
     singleOrderBtn.innerText = "✅ Скопійовано! Переходимо...";
     singleOrderBtn.style.backgroundColor = "#28a745";
