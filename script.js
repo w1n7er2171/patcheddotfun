@@ -237,10 +237,15 @@ function openModal(product) {
   }
 
   // кнопка
-  addToCart.disabled = product.status === "out_of_stock";
-  addToCart.innerText = addToCart.disabled
-    ? "Немає в наявності"
+  const isOut = product.status === "out_of_stock";
+
+  addToCart.disabled = isOut;
+  addToCart.innerText = isOut
+    ? "Товар закінчився"
     : "Додати в кошик";
+
+  addToCart.classList.toggle("out-of-stock-btn", isOut);
+
 
   document.body.style.overflow = "hidden";
 }
