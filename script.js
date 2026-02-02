@@ -9,6 +9,8 @@ const overlay = document.getElementById("overlay");
 const openCartBtn = document.getElementById("openCart");
 const checkoutBtn = document.getElementById("checkout");
 const addToCartBtn = document.getElementById("addToCart");
+const singleOrderBtn = document.getElementById("singleOrderBtn");
+const orderPreview = document.getElementById("orderPreview");
 
 const typeFilter = document.getElementById("typeFilter");
 const subtypeFilter = document.getElementById("subtypeFilter");
@@ -311,6 +313,51 @@ function closeCart() {
 
   document.body.style.overflow = "";
 }
+
+/* =======================
+   ORDER MODAL
+======================= */
+checkoutBtn.onclick = () => {
+  if (!cart.length) return;
+
+  // Формуємо код для бота
+  const rawData = cart.map(item => {
+    const s = item.size ? item.size.replace(/\s+/g, '') : 'N';
+    return `${item.id}:${s}:${item.qty}`;
+  }).join('|');
+  const textToCopy = `ORDER[${rawData}]`;
+
+  // Прев’ю для користувача
+  let previewText = `🛒 Ваше замовлення:\n`;
+  cart.forEach(item => {
+    const product = products.find(p => p.id === item.id);
+    previewText += `• ${product ? product.name : item.id} ${item.size ? `[${item.size}]` : ''} — ${item.qty} шт.\n`;
+  });
+
+  orderPreview.innerText = previewText;
+
+  cartModal.classList.remove("show");
+  setTimeout(() => {
+    cartModal.classList.add("hidden");
+    orderModal.classList.remove("hidden");
+    requestAnimationFrame(() => orderModal.classList.add("show"));
+  }, 200);
+
+  singleOrderBtn.onclick = () => {
+    navigator.clipboard.writeText(textToCopy).catch(() => {});
+    const tgWindow = window.open(`https://t.me/patcheddotfunbot`, "_blank");
+    if (!tgWindow) location.href = `https://t.me/patcheddotfunbot`;
+
+    cart = [];
+    saveCart();
+
+    orderModal.classList.remove("show");
+    orderModal.classList.add("hidden");
+
+    singleOrderBtn.innerText = "✅ Скопійовано! Переходимо...";
+    singleOrderBtn.style.backgroundColor = "#28a745";
+  };
+};
 
 /* =======================
    UTILS
