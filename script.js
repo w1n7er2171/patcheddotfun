@@ -369,3 +369,15 @@ function capitalize(str) {
 
 function showSkeleton() {}
 function restoreFromHash() {}
+function hideOverlayIfNoModal() {
+  const modalOpen = modal.classList.contains("show");
+  const cartOpen = cartModal.classList.contains("show");
+  const orderOpen = orderModal.classList.contains("show"); // додано
+
+  if (!modalOpen && !cartOpen && !orderOpen) {
+    overlay.classList.remove("show");
+    setTimeout(() => {
+      overlay.classList.add("hidden");
+    }, 250);
+  }
+}
