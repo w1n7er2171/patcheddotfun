@@ -33,9 +33,6 @@ fetch("data/products.json")
     renderProducts();
     restoreFromHash();
     saveCart();
-  })
-  .catch(err => {
-    console.error(err);
   });
 
 /* =======================
@@ -71,7 +68,7 @@ subtypeFilter.onchange = () => {
 };
 
 function populateSubtypeFilter(type) {
-  subtypeFilter.innerHTML = `<option value="">Всі</option>`;
+  subtypeFilter.innerHTML = `<option value="">Всі підтипи</option>`;
   if (!type) return;
 
   const subs = [...new Set(products.filter(p => p.type === type).map(p => p.subtype))];
@@ -99,7 +96,7 @@ function renderProducts() {
     div.innerHTML = `
       <img src="${p.image}">
       <h3>${p.name}</h3>
-      <p>${p.price} грн</p>
+      <p>${p.price.toLocaleString("uk-UA")} грн</p>
     `;
 
     div.onclick = () => openModal(p);
@@ -124,9 +121,9 @@ function openModal(product) {
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
 
-  modalImage.src = product.image;
+  modalImage.src = product.image || "";
   modalName.innerText = product.name;
-  modalDescription.innerText = product.description;
+  modalDescription.innerText = product.description || "";
   modalPrice.innerText = product.price + " грн";
 
   const sizeWrapper = document.getElementById("sizeWrapper");
@@ -145,7 +142,7 @@ function openModal(product) {
 
   const isOut = product.status === "out_of_stock";
   addToCartBtn.disabled = isOut;
-  addToCartBtn.innerText = isOut ? "Немає в наявності" : "Додати в кошик";
+  addToCartBtn.innerText = isOut ? "Товар закінчився" : "Додати в кошик";
   addToCartBtn.classList.toggle("out-of-stock-btn", isOut);
 
   requestAnimationFrame(() => {
@@ -163,7 +160,7 @@ function closeModal() {
   setTimeout(() => {
     modal.classList.add("hidden");
     overlay.classList.add("hidden");
-  }, 200);
+  }, 250);
 
   document.body.style.overflow = "";
 }
@@ -174,9 +171,12 @@ document.getElementById("closeModal").onclick = closeModal;
    CART LOGIC
 ======================= */
 function addToCart(product, size) {
+  if (product.status === "out_of_stock") return;
+
   const item = cart.find(i => i.id === product.id && i.size === size);
   if (item) item.qty++;
   else cart.push({ id: product.id, size, qty: 1 });
+
   saveCart();
 }
 
@@ -185,6 +185,7 @@ addToCartBtn.onclick = () => {
   if (currentProduct.status === "out_of_stock") return;
 
   const size = document.getElementById("sizeSelect").value;
+
   if (currentProduct.sizes?.length && !size) {
     alert("Оберіть розмір");
     return;
@@ -194,29 +195,91 @@ addToCartBtn.onclick = () => {
   closeModal();
 };
 
+function renderCart() {
+  const el = document.getElementById("cartItems");
+  el.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const product = products.find(p => p.id === item.id);
+    if (!product) return;
+
+    const sum = product.price * item.qty;
+    total += sum;
+
+    el.innerHTML += `
+     <div class="cart-item">
+       <div class="cart-item-left">
+         <div class="cart-item-info">
+           <img src="${product.image}" alt="${product.name}">
+           <div>
+             <strong>${product.name}</strong>
+             ${item.size ? `<span class="cart-size">Розмір: ${item.size}</span>` : ""}
+           </div>
+         </div>
+
+         <button class="qty-btn" onclick="changeQty('${item.id}', '${item.size}', -1)">−</button>
+
+         <input
+           class="qty-input"
+           type="number"
+           min="1"
+           value="${item.qty}"
+           onchange="setQty('${item.id}', '${item.size}', this.value)"
+         />
+
+         <button class="qty-btn" onclick="changeQty('${item.id}', '${item.size}', 1)">+</button>
+
+         <button class="remove-btn" onclick="removeFromCart('${item.id}', '${item.size}')">×</button>
+       </div>
+     </div>
+    `;
+  });
+
+  document.getElementById("cartTotal").innerText =
+    total.toLocaleString("uk-UA");
+}
+
+function setQty(id, size, value) {
+  const qty = parseInt(value);
+  if (!qty || qty <= 0) {
+    removeFromCart(id, size);
+    return;
+  }
+
+  const item = cart.find(i => i.id === id && i.size === size);
+  if (!item) return;
+
+  item.qty = qty;
+  saveCart();
+}
+
+function changeQty(id, size, delta) {
+  const item = cart.find(i => i.id === id && i.size === size);
+  if (!item) return;
+
+  item.qty += delta;
+  if (item.qty <= 0) {
+    removeFromCart(id, size);
+    return;
+  }
+
+  saveCart();
+}
+
+function removeFromCart(id, size) {
+  cart = cart.filter(i => !(i.id === id && i.size === size));
+  saveCart();
+}
+
 function saveCart() {
   sessionStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
 
-  const count = cart.reduce((a, b) => a + b.qty, 0);
+  const count = cart.reduce((acc, item) => acc + item.qty, 0);
   document.getElementById("cartCount").innerText = count;
+
   openCartBtn.classList.toggle("hidden", cart.length === 0);
-}
-
-function renderCart() {
-  const el = document.getElementById("cartItems");
-  el.innerHTML = "";
-
-  cart.forEach(i => {
-    const p = products.find(p => p.id === i.id);
-    el.innerHTML += `
-      <div class="cart-item">
-        <strong>${p.name}</strong>
-        ${i.size ? `(${i.size})` : ""}
-        × ${i.qty}
-      </div>
-    `;
-  });
 }
 
 /* =======================
@@ -231,6 +294,7 @@ openCartBtn.onclick = () => {
     overlay.classList.add("show");
   });
 
+  renderCart();
   document.body.style.overflow = "hidden";
 };
 
@@ -243,7 +307,7 @@ function closeCart() {
   setTimeout(() => {
     cartModal.classList.add("hidden");
     overlay.classList.add("hidden");
-  }, 200);
+  }, 250);
 
   document.body.style.overflow = "";
 }
