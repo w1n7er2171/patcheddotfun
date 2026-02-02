@@ -453,6 +453,14 @@ button.out-of-stock-btn {
   width: 100%;
 }
 
+.modal.out-of-stock img,
+.modal.out-of-stock h2,
+.modal.out-of-stock p {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+
 .close {
   position: absolute;
   top: 8px;
