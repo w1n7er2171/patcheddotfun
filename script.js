@@ -95,12 +95,15 @@ function renderProducts() {
     div.className = "product";
     if (p.status === "out_of_stock") div.classList.add("out-of-stock");
 
-    div.innerHTML = `
-      <img src="${p.image}">
-      ${p.low_stock ? `<span class="badge-low">Закінчується</span>` : ""}
-      <h3>${p.name}</h3>
-      <p>${p.price.toLocaleString("uk-UA")} грн</p>
-    `;
+    const isLow = p.status === "low_stock";
+
+      div.innerHTML = `
+        <img src="${p.image}">
+        ${isLow ? `<span class="badge-low">Закінчується</span>` : ""}
+        <h3>${p.name}</h3>
+        <p>${p.price.toLocaleString("uk-UA")} грн</p>
+      `;
+
 
     div.onclick = () => openModal(p);
 
@@ -128,11 +131,16 @@ function openModal(product) {
   modalName.innerText = product.name;
   modalDescription.innerText = product.description || "";
   modalPrice.innerText = product.price + " грн";
-  if (product.low_stock) {
-     lowStockEl.classList.remove("hidden");
-  } else {
-     lowStockEl.classList.add("hidden");
-  }
+   
+  const lowStockEl = document.getElementById("modalLowStock");
+
+   if (lowStockEl) {
+     if (product.status === "low_stock") {
+       lowStockEl.classList.remove("hidden");
+     } else {
+       lowStockEl.classList.add("hidden");
+     }
+   }
    
 
   const sizeWrapper = document.getElementById("sizeWrapper");
