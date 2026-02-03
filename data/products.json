@@ -6,7 +6,7 @@
       "type": "Дрібнички",
       "subtype": "Стікери",
       "price": 25,
-      "status": "out_of_stock",
+      "status": "low_on_stock",
       "image": "assets/sticker_lisnycha.png",
       "description": "Стікер 3×3 см, малюнок з обкладинки дебютного альбому гурту Трускавецьке Лісництво - 'ЛІСОВА ПІСнЯ'"
     },
@@ -38,7 +38,7 @@
       "price": 25,
       "status": "in_stock",
       "image": "assets/sticker_pearto_ryo.png",
-      "description": "Худі передзамовлення тест"
+      "description": "Стікер-косплей від Рьо Ямади на Касане Тето"
     },
     {
       "id": "cd_neverbloom_vil_noja_blom",
@@ -60,6 +60,26 @@
       "status": "preorder",
       "image": "assets/tshirt_tl.png",
       "description": "Передзамовлення футболки Трускавецького Лісництва"
+    },
+    {
+      "id": "sticker_vaporeon_hent",
+      "name": "Стікер Проклятий Вапореон",
+      "type": "Дрібнички",
+      "subtype": "Стікери",
+      "price": 20,
+      "status": "in_stock",
+      "image": "assets/sticker_vaporeon_hent.png",
+      "description": "Стікер з Вапореоном, що робить ахегао, нагадуючи нам всім, що Вапореон - буквально побудований для... Е... Ну ви поняли"
+    },
+    {
+      "id": "sticker_kitaura",
+      "name": "Стікер Кітаура",
+      "type": "Дрібнички",
+      "subtype": "Стікери",
+      "price": 20,
+      "status": "in_stock",
+      "image": "assets/sticker_kitaura.png",
+      "description": "Кітаура~~~"
     }
   ]
 }
