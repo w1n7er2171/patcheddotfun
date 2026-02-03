@@ -128,6 +128,12 @@ function openModal(product) {
   modalName.innerText = product.name;
   modalDescription.innerText = product.description || "";
   modalPrice.innerText = product.price + " грн";
+  if (product.low_stock) {
+     lowStockEl.classList.remove("hidden");
+  } else {
+     lowStockEl.classList.add("hidden");
+  }
+   
 
   const sizeWrapper = document.getElementById("sizeWrapper");
   const sizeSelect = document.getElementById("sizeSelect");
@@ -144,12 +150,6 @@ function openModal(product) {
   }
 
    const lowStockEl = document.getElementById("modalLowStock");
-   
-  if (product.low_stock) {
-     lowStockEl.classList.remove("hidden");
-   } else {
-     lowStockEl.classList.add("hidden");
-  }
    
   const isOut = product.status === "out_of_stock";
   addToCartBtn.disabled = isOut;
