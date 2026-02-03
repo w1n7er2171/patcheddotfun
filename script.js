@@ -6,6 +6,11 @@ const cartModal = document.getElementById("cartModal");
 const orderModal = document.getElementById("orderModal");
 const overlay = document.getElementById("overlay");
 
+const modalImage = document.getElementById("modalImage");
+const modalName = document.getElementById("modalName");
+const modalDescription = document.getElementById("modalDescription");
+const modalPrice = document.getElementById("modalPrice");
+
 const openCartBtn = document.getElementById("openCart");
 const checkoutBtn = document.getElementById("checkout");
 const addToCartBtn = document.getElementById("addToCart");
