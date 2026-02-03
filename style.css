@@ -492,6 +492,7 @@ button.out-of-stock-btn {
   border: none;
   background: none;
   cursor: pointer;
+  color: var(--bg);
 }
 
 .hidden {
