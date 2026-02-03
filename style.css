@@ -525,6 +525,10 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.sizeSelect {
+  background: var(--accent);
+}
+
 /* CART */
 .cart-btn {
   position: fixed;
