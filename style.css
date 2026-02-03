@@ -474,6 +474,14 @@ button.out-of-stock-btn {
   opacity: 0.6;
 }
 
+.modal-low {
+  margin-top: 6px;
+  color: orange;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+
 
 .close {
   position: absolute;
