@@ -367,6 +367,20 @@ html, body {
   color: #888;
 }
 
+.badge-low {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: orange;
+  color: #000;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+
 /* Кнопка в модалці, коли товару немає */
 button.out-of-stock-btn {
   background: #444 !important;
