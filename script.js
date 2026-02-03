@@ -161,8 +161,6 @@ function openModal(product) {
   } else {
     sizeWrapper.style.display = "none";
   }
-
-   const lowStockEl = document.getElementById("modalLowStock");
    
   const isOut = product.status === "out_of_stock";
   addToCartBtn.disabled = isOut;
