@@ -97,6 +97,7 @@ function renderProducts() {
 
     div.innerHTML = `
       <img src="${p.image}">
+      ${p.low_stock ? `<span class="badge-low">Закінчується</span>` : ""}
       <h3>${p.name}</h3>
       <p>${p.price.toLocaleString("uk-UA")} грн</p>
     `;
@@ -142,6 +143,14 @@ function openModal(product) {
     sizeWrapper.style.display = "none";
   }
 
+   const lowStockEl = document.getElementById("modalLowStock");
+   
+  if (product.low_stock) {
+     lowStockEl.classList.remove("hidden");
+   } else {
+     lowStockEl.classList.add("hidden");
+  }
+   
   const isOut = product.status === "out_of_stock";
   addToCartBtn.disabled = isOut;
   addToCartBtn.innerText = isOut ? "Товар закінчився" : "Додати в кошик";
