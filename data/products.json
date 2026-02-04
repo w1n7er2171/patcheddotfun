@@ -6,7 +6,7 @@
       "type": "Дрібнички",
       "subtype": "Стікери",
       "price": 25,
-      "status": "low_stock",
+      "status": "out_of_stock",
       "image": "assets/sticker_lisnycha.png",
       "description": "Стікер 3×3 см, малюнок з обкладинки дебютного альбому гурту Трускавецьке Лісництво - 'ЛІСОВА ПІСнЯ', автор - Міль"
     },
